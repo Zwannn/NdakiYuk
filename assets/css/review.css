@@ -1,0 +1,688 @@
+/* ==========================================================================
+   NdakiYuk – review.css (Synchronized with Login Floating Nav & Footer Layout)
+   ========================================================================== */
+
+/* ---- Reset & Variables Global Integration ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --green-dark:   #0d3b22;
+    --green-primary:#1a5c38;
+    --green-mid:    #246b43;
+    --green-light:  #eef7f2;
+    --yellow:       #f5c842;
+    --yellow-hover: #e0b530;
+    --white:        #ffffff;
+    --white-60:     rgba(255,255,255,0.6);
+    --white-20:     rgba(255,255,255,0.2);
+    --white-10:     rgba(255,255,255,0.1);
+    --text-main:    #2d3748;
+    --text-muted:   #718096;
+    --bg-base:      #f7fafc;
+    --border-color: #e2e8f0;
+    --card-shadow:  0 4px 15px rgba(0, 0, 0, 0.03);
+    --font-main:    'Plus Jakarta Sans', sans-serif;
+    --nav-h:        72px;
+    --radius-nav:   37px;
+    --white:        #ffffff;
+    --white-60:     rgba(255,255,255,0.60);
+    --white-30:     rgba(255,255,255,0.30);
+    --white-10:     rgba(255,255,255,0.10);
+    --yellow:       #f5c842;
+    --yellow-hover: #e0b530;
+    --green-dark:   #0d3b22;
+    --green-main:   #1a5c38;
+    --text-dark:    #0f2419;
+    --border:       #e0e8e3;
+    --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
+    --transition-smooth: all 0.2s ease-in-out;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+}
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+/* ── Induk Utama Floating Navbar ── */
+.navbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1200px;
+    height: var(--nav-h);
+    background: rgba(13, 59, 34, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-nav);
+    z-index: 1000;
+    transition: background var(--transition), box-shadow var(--transition);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.26);
+}
+
+/* Efek Transparansi Sempurna Saat Halaman Di-scroll Kebawah */
+.navbar.scrolled {
+    background: rgba(13, 59, 34, 0.60);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 24px;
+    gap: 12px;
+}
+
+/* Sisi Kiri: Identitas Brand & Logo */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    height: 100%;
+    flex: 1;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+.nav-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform var(--transition);
+}
+
+.nav-brand:hover .nav-logo img {
+    transform: scale(1.04);
+}
+
+.nav-brand-text {
+    font-size: 1.3rem; 
+    font-weight: 800;
+    color: var(--white); 
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+}
+
+/* Sisi Tengah: Menu Navigasi Link Teks */
+.nav-links {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 2px; 
+    list-style: none;
+    flex: 2;
+}
+
+.nav-link {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px;
+    padding: 7px 13px;
+    font-size: 0.84rem; 
+    font-weight: 500;
+    color: var(--white-60);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active { 
+    color: var(--white); 
+    background: var(--white-10); 
+}
+
+.nav-link svg { 
+    flex-shrink: 0; 
+    opacity: 0.75; 
+}
+
+/* Sisi Kanan: Tombol Aksi & Kendali User */
+.nav-actions {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px; 
+    flex-shrink: 0;
+    flex: 1;
+}
+
+.nav-search-btn, .nav-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--white-60) !important;
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+}
+
+.nav-search-btn:hover, .nav-search:hover { 
+    color: var(--white); 
+    background: var(--white-10); 
+}
+
+.nav-search-btn svg, .nav-search svg { 
+    stroke: currentColor; 
+}
+
+/* Model Tombol Guest Mode (Login / Register) */
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    font-size: 0.82rem; 
+    font-weight: 600;
+    color: var(--white) !important;
+    text-decoration: none;
+    border: 1.5px solid var(--white-30);
+    border-radius: 10px;
+    transition: border-color var(--transition), background var(--transition);
+}
+
+.btn-outline:hover { 
+    border-color: var(--white-60); 
+    background: var(--white-10); 
+}
+
+.btn-primary-nav, .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    font-size: 0.82rem; 
+    font-weight: 700;
+    color: var(--green-dark) !important;
+    background: var(--yellow);
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.btn-primary-nav:hover, .btn-primary:hover { 
+    background: var(--yellow-hover); 
+    transform: translateY(-1px); 
+}
+
+/* ── KELOMPOK DROPDOWN AKUN USER PROFILE ── */
+.nav-profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px 6px 6px;
+    border-radius: 100px;
+    cursor: pointer;
+    color: var(--white);
+    transition: all var(--transition);
+}
+
+.nav-user-toggle:hover, .nav-user-toggle.active {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ccc;
+}
+
+.nav-user-name {
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.nav-user-toggle .chevron-icon { 
+    transition: transform var(--transition); 
+}
+
+.nav-user-toggle.active .chevron-icon { 
+    transform: rotate(180deg); 
+}
+
+/* Menu Dropdown Box */
+.dropdown-menu-box {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 160px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    z-index: 1100;
+    animation: slideDropdown 0.25s ease;
+}
+
+.dropdown-menu-box.show { 
+    display: flex; 
+}
+
+.dropdown-arrow {
+    position: absolute;
+    top: -6px;
+    right: 18px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    transform: rotate(45deg);
+    border-top-left-radius: 2px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background var(--transition), color var(--transition);
+}
+
+.dropdown-item:hover { 
+    background: #f4f6f4; 
+    color: var(--green-main); 
+}
+
+.dropdown-item.logout-link {
+    color: #d63b3b;
+    margin-top: 4px;
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    padding-top: 12px;
+}
+
+.dropdown-item.logout-link:hover { 
+    background: #fff5f5; 
+    color: #d63b3b; 
+}
+
+@keyframes slideDropdown {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES ENGINE (Sistem Responsif Pendukung khusus Kendali Navbar)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .navbar { width: calc(100% - 32px); }
+    .nav-links { gap: 0px; }
+    .nav-link { padding: 7px 10px; font-size: 0.8rem; }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: calc(100% - 24px);
+        top: 12px;
+        height: 64px;
+        border-radius: 20px;
+    }
+    .nav-container { padding: 0 16px; }
+    .nav-links { display: none; } /* Menyembunyikan teks menu tengah di HP */
+    .nav-brand-text { font-size: 1.15rem; }
+}
+
+@media (max-width: 480px) {
+    .nav-username, .nav-user-name { 
+        display: none; /* Menyembunyikan teks nama user di HP kecil agar tidak sumpek */
+    }
+    .nav-user-toggle { padding: 6px; }
+}
+
+
+/* ==========================================================================
+   REVIEW BODY CONTENT & HEADERS
+   ========================================================================== */
+.review-header {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+    color: #ffffff;
+    padding: calc(16px + var(--nav-h) + 40px) 0 60px 0;
+    text-align: center;
+}
+
+.header-container {
+    max-width: 950px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+
+.header-sub {
+    font-size: 0.95rem;
+    color: rgba(255, 255, 255, 0.85);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+.page-main { 
+    padding: 40px 0 80px 0; 
+}
+
+.page-container { 
+    max-width: 950px; 
+    margin: 0 auto; 
+    padding: 0 20px; 
+}
+
+/* ── STATS CARD SUMMARY ── */
+.rating-summary-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 26px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    align-items: center;
+    gap: 35px;
+    margin-bottom: 40px;
+    border: 1px solid rgba(0,0,0,0.02);
+}
+
+.score-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 160px;
+    border-right: 1px solid var(--border-color);
+    padding-right: 35px;
+}
+
+.score-num {
+    font-size: 3rem;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+}
+
+.score-stars { 
+    display: flex; 
+    gap: 3px; 
+    margin-bottom: 6px; 
+}
+
+.score-total { 
+    font-size: 0.75rem; 
+    color: var(--text-muted); 
+    font-weight: 600; 
+}
+
+.summary-text-box h3 { 
+    margin: 0 0 6px 0; 
+    font-size: 1.05rem; 
+    font-weight: 700; 
+    color: var(--green-primary); 
+}
+
+.summary-text-box p { 
+    margin: 0; 
+    font-size: 0.85rem; 
+    color: var(--text-muted); 
+    line-height: 1.5; 
+}
+
+/* ── KELOMPOK BLOK GUNUNG UTAMA ── */
+.gunung-group-container {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.gunung-group-block {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+}
+
+.gunung-group-header {
+    background: var(--green-light);
+    padding: 20px 24px;
+    border-bottom: 1px solid rgba(26, 92, 56, 0.08);
+}
+
+.gunung-group-title {
+    font-size: 1.35rem;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin: 0 0 3px 0;
+}
+
+.gunung-group-meta {
+    font-size: 0.82rem;
+    color: var(--green-primary);
+    font-weight: 600;
+}
+
+.gunung-reviews-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.sub-review-item {
+    padding: 20px 24px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.sub-review-item:last-child {
+    border-bottom: none;
+}
+
+.review-user-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.user-avatar {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    color: #ffffff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 0.8rem;
+    margin-right: 12px;
+}
+
+.user-meta-info {
+    flex-grow: 1;
+}
+
+.user-name {
+    font-size: 0.9rem;
+    font-weight: 700;
+    margin: 0;
+    color: var(--text-main);
+}
+
+.review-date {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+}
+
+.user-stars {
+    display: flex;
+    gap: 2px;
+}
+
+.review-text-content {
+    padding-left: 46px;
+}
+
+.review-text-content p {
+    margin: 0;
+    font-size: 0.88rem;
+    color: var(--text-main);
+    line-height: 1.5;
+    font-style: italic;
+}
+
+.empty-review-box {
+    background: #ffffff;
+    border-radius: 14px;
+    padding: 40px;
+    text-align: center;
+    border: 1px dashed var(--border-color);
+}
+
+.empty-text { 
+    font-size: 0.9rem; 
+    color: var(--text-muted); 
+    margin: 0; 
+}
+
+/* ==========================================================================
+   FOOTER COMPONENT (Directly from login.css)
+   ========================================================================== */
+.footer {
+    background: #1B4332;
+    padding: 26px 40px;
+    margin-top: 60px;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+.footer-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.footer-text {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.32);
+    line-height: 1.65;
+    flex: 1;
+}
+
+.footer-copy {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.28);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   RESPONSIVE DESIGN BREAKPOINTS
+   ========================================================================== */
+@media (max-width: 900px) {
+    .navbar {
+        width: calc(100% - 24px);
+        top: 10px;
+        border-radius: 12px;
+    }
+
+    .nav-links { 
+        display: none; 
+    }
+
+    .footer-container { 
+        flex-direction: column; 
+        text-align: center;
+        gap: 12px;
+    }
+    
+    .footer-copy { 
+        white-space: normal; 
+    }
+}
+
+@media (max-width: 640px) {
+    .rating-summary-card { 
+        flex-direction: column; 
+        gap: 20px; 
+        text-align: center; 
+    }
+    
+    .score-box { 
+        border-right: none; 
+        padding-right: 0; 
+        width: 100%; 
+    }
+    
+    .review-user-row { 
+        flex-wrap: wrap; 
+        gap: 8px; 
+    }
+    
+    .user-stars { 
+        width: 100%; 
+        padding-left: 46px; 
+    }
+    
+    .review-text-content { 
+        padding-left: 0; 
+        margin-top: 6px; 
+    }
+}

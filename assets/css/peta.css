@@ -1,0 +1,736 @@
+/* =========================================================================
+   Pusat Desain Antarmuka Peta Navigasi Jalur Resmi – NdakiYuk 2026
+   Styling Riwayat Pemesanan Tiket NdakiYuk - Kusuma Adi Rabbani Palette
+   ========================================================================= */
+
+:root {
+    --green-dark:   #0d3b22;
+    --green-primary:#1a5c38;
+    --green-mid:    #246b43;
+    --green-light:  #eef7f2;
+    --text-dark:    #0f2419;
+    --text-mid:     #7a9487;
+    --bg-page:      #f4f6f4;
+    --border:       #dce8e1;
+    --yellow:       #f5c842;
+    --yellow-hover: #e0b530;
+    --white:        #ffffff;
+    --white-60:     rgba(255,255,255,0.6);
+    --white-20:     rgba(255,255,255,0.2);
+    --white-10:     rgba(255,255,255,0.1);
+    --orange-warning: #e8832a;
+    --blue-info:     #4b86b4;
+    --red-danger:    #d9534f;
+    --text-main:    #2d3748;
+    --text-muted:   #718096;
+    --bg-base:      #f7fafc;
+    --card-shadow:  0 4px 15px rgba(0, 0, 0, 0.04);
+    --font-main:    'Plus Jakarta Sans', sans-serif;
+    --nav-h:        72px;
+    --radius-nav:   37px;
+    --white:        #ffffff;
+    --white-60:     rgba(255,255,255,0.60);
+    --white-30:     rgba(255,255,255,0.30);
+    --white-10:     rgba(255,255,255,0.10);
+    --yellow:       #f5c842;
+    --yellow-hover: #e0b530;
+    --green-dark:   #0d3b22;
+    --green-main:   #1a5c38;
+    --text-dark:    #0f2419;
+    --border:       #e0e8e3;
+    --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+.container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* ==========================================================================
+   NAVBAR COMPONENT (Directly synced with login.css Layout)
+   ========================================================================== */
+/* ── Induk Utama Floating Navbar ── */
+.navbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1200px;
+    height: var(--nav-h);
+    background: rgba(13, 59, 34, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-nav);
+    z-index: 1000;
+    transition: background var(--transition), box-shadow var(--transition);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.26);
+}
+
+/* Efek Transparansi Sempurna Saat Halaman Di-scroll Kebawah */
+.navbar.scrolled {
+    background: rgba(13, 59, 34, 0.60);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 24px;
+    gap: 12px;
+}
+
+/* Sisi Kiri: Identitas Brand & Logo */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    height: 100%;
+    flex: 1;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+.nav-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform var(--transition);
+}
+
+.nav-brand:hover .nav-logo img {
+    transform: scale(1.04);
+}
+
+.nav-brand-text {
+    font-size: 1.3rem; 
+    font-weight: 800;
+    color: var(--white); 
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+}
+
+/* Sisi Tengah: Menu Navigasi Link Teks */
+.nav-links {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 2px; 
+    list-style: none;
+    flex: 2;
+}
+
+.nav-link {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px;
+    padding: 7px 13px;
+    font-size: 0.84rem; 
+    font-weight: 500;
+    color: var(--white-60);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active { 
+    color: var(--white); 
+    background: var(--white-10); 
+}
+
+.nav-link svg { 
+    flex-shrink: 0; 
+    opacity: 0.75; 
+}
+
+/* Sisi Kanan: Tombol Aksi & Kendali User */
+.nav-actions {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px; 
+    flex-shrink: 0;
+    flex: 1;
+}
+
+.nav-search-btn, .nav-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--white-60) !important;
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+}
+
+.nav-search-btn:hover, .nav-search:hover { 
+    color: var(--white); 
+    background: var(--white-10); 
+}
+
+.nav-search-btn svg, .nav-search svg { 
+    stroke: currentColor; 
+}
+
+/* Model Tombol Guest Mode (Login / Register) */
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    font-size: 0.82rem; 
+    font-weight: 600;
+    color: var(--white) !important;
+    text-decoration: none;
+    border: 1.5px solid var(--white-30);
+    border-radius: 10px;
+    transition: border-color var(--transition), background var(--transition);
+}
+
+.btn-outline:hover { 
+    border-color: var(--white-60); 
+    background: var(--white-10); 
+}
+
+.btn-primary-nav, .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    font-size: 0.82rem; 
+    font-weight: 700;
+    color: var(--green-dark) !important;
+    background: var(--yellow);
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.btn-primary-nav:hover, .btn-primary:hover { 
+    background: var(--yellow-hover); 
+    transform: translateY(-1px); 
+}
+
+/* ── KELOMPOK DROPDOWN AKUN USER PROFILE ── */
+.nav-profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px 6px 6px;
+    border-radius: 100px;
+    cursor: pointer;
+    color: var(--white);
+    transition: all var(--transition);
+}
+
+.nav-user-toggle:hover, .nav-user-toggle.active {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ccc;
+}
+
+.nav-user-name {
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.nav-user-toggle .chevron-icon { 
+    transition: transform var(--transition); 
+}
+
+.nav-user-toggle.active .chevron-icon { 
+    transform: rotate(180deg); 
+}
+
+/* Menu Dropdown Box */
+.dropdown-menu-box {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 160px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    z-index: 1100;
+    animation: slideDropdown 0.25s ease;
+}
+
+.dropdown-menu-box.show { 
+    display: flex; 
+}
+
+.dropdown-arrow {
+    position: absolute;
+    top: -6px;
+    right: 18px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    transform: rotate(45deg);
+    border-top-left-radius: 2px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background var(--transition), color var(--transition);
+}
+
+.dropdown-item:hover { 
+    background: #f4f6f4; 
+    color: var(--green-main); 
+}
+
+.dropdown-item.logout-link {
+    color: #d63b3b;
+    margin-top: 4px;
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    padding-top: 12px;
+}
+
+.dropdown-item.logout-link:hover { 
+    background: #fff5f5; 
+    color: #d63b3b; 
+}
+
+@keyframes slideDropdown {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES ENGINE (Sistem Responsif Pendukung khusus Kendali Navbar)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .navbar { width: calc(100% - 32px); }
+    .nav-links { gap: 0px; }
+    .nav-link { padding: 7px 10px; font-size: 0.8rem; }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: calc(100% - 24px);
+        top: 12px;
+        height: 64px;
+        border-radius: 20px;
+    }
+    .nav-container { padding: 0 16px; }
+    .nav-links { display: none; } /* Menyembunyikan teks menu tengah di HP */
+    .nav-brand-text { font-size: 1.15rem; }
+}
+
+@media (max-width: 480px) {
+    .nav-username, .nav-user-name { 
+        display: none; /* Menyembunyikan teks nama user di HP kecil agar tidak sumpek */
+    }
+    .nav-user-toggle { padding: 6px; }
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+    background: linear-gradient(135deg, #113620 0%, #1a5c38 100%);
+    padding: 130px 0 60px 0; /* padding atas diperbesar agar tidak tertutup floating navbar */
+    color: var(--white);
+    text-align: left;
+    position: relative;
+}
+
+.page-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+}
+
+.page-title-bar {
+    width: 60px;
+    height: 4px;
+    background-color: var(--yellow);
+    margin: 12px 0 16px 0;
+    border-radius: 2px;
+}
+
+.page-desc {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+/* ── CONTENT AREA ── */
+.main-content {
+    padding: 40px 0 80px 0;
+}
+
+.section-meta-info {
+    margin-bottom: 24px;
+}
+
+.result-count {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--text-mid);
+}
+
+.result-count strong {
+    color: var(--green-dark);
+}
+
+/* ── MAP CARDS GRID ── */
+.peta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.peta-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    transform: translateY(15px);
+    animation: cardEntrance 0.4s forwards ease-out;
+}
+
+@keyframes cardEntrance {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.card-media {
+    position: relative;
+    height: 180px;
+    overflow: hidden;
+}
+
+.card-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.peta-card:hover .card-media img {
+    transform: scale(1.05);
+}
+
+.media-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.4) 100%);
+}
+
+.geo-badge {
+    position: absolute;
+    bottom: 12px;
+    left: 14px;
+    background: rgba(13, 59, 34, 0.85);
+    backdrop-filter: blur(4px);
+    color: var(--white);
+    font-size: 0.72rem;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 6px;
+    text-transform: uppercase;
+}
+
+.card-body {
+    padding: 18px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.mountain-name {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin-bottom: 4px;
+}
+
+.mountain-height {
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--text-mid);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    margin-bottom: 20px;
+}
+
+.btn-download-map {
+    width: 100%;
+    padding: 11px;
+    background-color: var(--green-primary);
+    color: var(--white);
+    border: none;
+    border-radius: 8px;
+    font-size: 0.84rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: auto;
+    transition: background 0.2s, transform 0.1s;
+    box-shadow: 0 4px 10px rgba(26, 92, 56, 0.15);
+}
+
+.btn-download-map:hover {
+    background-color: var(--green-dark);
+}
+
+.btn-download-map:active {
+    transform: scale(0.98);
+}
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--white);
+    border: 1px dashed var(--text-mid);
+    border-radius: 14px;
+    color: var(--text-mid);
+}
+
+.empty-state svg {
+    margin-bottom: 12px;
+    color: var(--text-mid);
+}
+
+/* ── FOOTER COMPONENT ── */
+.footer {
+    background: #1B4332;
+    padding: 26px 40px;
+    margin-top: 60px;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+.footer-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.footer-text {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.32);
+    line-height: 1.65;
+    flex: 1;
+}
+
+.footer-copy {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.28);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ── TOAST ALERT STYLE ── */
+.toast {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(100px);
+    background: rgba(13, 59, 34, 0.95);
+    color: var(--white);
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 0.84rem;
+    font-weight: 600;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    z-index: 9999;
+    pointer-events: none;
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.toast.show {
+    transform: translateX(-50%) translateY(0);
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE ENGINE INTERNAL)
+   ========================================================================== */
+
+/* ── TABLET GADGET (SAMPAL BREAKPOINT: 992px) ── */
+@media (max-width: 992px) {
+    .navbar {
+        width: calc(100% - 32px);
+    }
+    .nav-links {
+        gap: 0px;
+    }
+    .nav-link {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+    }
+    .page-title {
+        font-size: 2rem;
+    }
+    .peta-grid {
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+        gap: 18px;
+    }
+}
+
+/* ── HP JADUL & SMARTPHONE STANDAR (SAMPAL BREAKPOINT: 768px) ── */
+@media (max-width: 768px) {
+    .navbar {
+        width: calc(100% - 24px);
+        top: 12px;
+        height: 64px;
+    }
+    .nav-container {
+        padding: 0 16px;
+    }
+    /* Sembunyikan Nav Teks links agar tidak tabrakan di mobile */
+    .nav-links {
+        display: none;
+    }
+    .nav-brand-text {
+        font-size: 1.15rem;
+    }
+    .page-header {
+        padding: 110px 0 45px 0;
+        text-align: center;
+    }
+    .page-title-bar {
+        margin: 10px auto 14px auto; /* Ketengahkan indikator garis di mobile */
+    }
+    .page-title {
+        font-size: 1.75rem;
+    }
+    .page-desc {
+        font-size: 0.86rem;
+        br { display: none; } /* Hapus line-break kalimat deskripsi agar text-wrapping rapi */
+    }
+    .main-content {
+        padding: 30px 0 60px 0;
+    }
+    .peta-grid {
+        grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+        gap: 16px;
+    }
+    .footer {
+        padding: 30px 24px;
+    }
+    .footer-container {
+        flex-direction: column;
+        text-align: center;
+        gap: 16px;
+    }
+    .footer-text {
+        font-size: 0.72rem;
+    }
+    .footer-copy {
+        font-size: 0.72rem;
+        white-space: normal;
+    }
+}
+
+/* ── GADGET LAYAR SANGAT KECIL (SAMPAL BREAKPOINT: 480px) ── */
+@media (max-width: 480px) {
+    .nav-user-name {
+        display: none; /* Sembunyikan nama user, sisakan avatar agar navbar lapang */
+    }
+    .nav-user-toggle {
+        padding: 4px;
+    }
+    .peta-grid {
+        grid-template-columns: 1fr; /* Sumbu kolom penuh tunggal di layar HP mini */
+    }
+    .card-media {
+        height: 200px; /* Perbesar rasio gambar peta agar detail di mobile */
+    }
+    .toast {
+        width: calc(100% - 40px);
+        text-align: center;
+        font-size: 0.8rem;
+        padding: 10px 16px;
+    }
+}

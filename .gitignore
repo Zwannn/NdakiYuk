@@ -1,0 +1,21 @@
+# File rahasia
+.env
+.env.*
+!.env.example
+
+# Log dan cache transaksi
+*.log
+qris_cache/
+qris_invoice_*.json
+
+# File sementara
+*.tmp
+*.bak
+.DS_Store
+Thumbs.db
+
+# Konfigurasi editor
+.vscode/
+.idea/
+# Konfigurasi database lokal
+/config/koneksi.php

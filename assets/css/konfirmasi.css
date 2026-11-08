@@ -1,0 +1,868 @@
+/* =============================================
+   NdakiYuk – konfirmasi.css
+   ============================================= */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+    --green-dark:    #0d3b22;
+    --green-main:    #1a5c38;
+    --green-mid:     #246b43;
+    --green-light:   #2d8653;
+    --yellow:        #f5c842;
+    --yellow-hover:  #e0b530;
+    --white:         #ffffff;
+    --white-80:      rgba(255,255,255,0.80);
+    --white-60:      rgba(255,255,255,0.60);
+    --white-30:      rgba(255,255,255,0.30);
+    --white-10:      rgba(255,255,255,0.10);
+    --bg-page:       #f0f4f1;
+    --bg-card:       #ffffff;
+    --text-dark:     #0f2419;
+    --text-mid:      #375040;
+    --text-muted:    #7a9487;
+    --border:        #dce8e1;
+    --shadow-sm:     0 2px 14px rgba(0,0,0,0.06);
+    --shadow-md:     0 8px 36px rgba(0,0,0,0.11);
+    --shadow-ticket: 0 20px 60px rgba(0,0,0,0.14);
+
+    --font-main:  'Plus Jakarta Sans', sans-serif;
+    --font-serif: 'Merriweather', serif;
+    --nav-h:      72px;
+    --radius-nav: 37px;
+    --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    --container:  620px;
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+    font-family: var(--font-main);
+    background: var(--bg-page);
+    color: var(--text-dark);
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+}
+
+/* =============================================
+   NAVBAR
+   ============================================= */
+.navbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1200px;
+    height: var(--nav-h);
+    background: rgba(13,59,34,0.92); /* Disamakan dengan gunung.css (0.92) */
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-nav);
+    z-index: 1000;
+    transition: background var(--transition), box-shadow var(--transition);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.26);
+}
+
+.navbar.scrolled {
+    background: rgba(13,59,34,0.50);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+}
+
+.nav-user{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.nav-user-link{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+}
+
+.nav-profile-img{
+    width:42px;
+    height:42px;
+    border-radius:50%;
+    object-fit:cover;
+    border:2px solid #1a5c38;
+}
+
+.nav-username{
+    font-size:14px;
+    font-weight:600;
+    color:#1a1a1a;
+}
+
+.nav-container {
+     display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 24px;
+    gap: 12px;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    height: 100%;
+    /* margin-right: auto; <--- HAPUS ATAU KOMENTARI BARIS INI */
+    flex: 1;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px; /* Menentukan tinggi area pembungkus logo */
+}
+
+.nav-logo img {
+    height: 100%;       /* Mengikuti tinggi area pembungkus (34px) */
+    width: auto;        /* Lebar menyesuaikan otomatis agar logo tidak gepeng */
+    object-fit: contain;
+    display: block;
+    transition: transform var(--transition);
+}
+
+/* Efek opsional saat kursor diarahkan ke logo */
+.nav-brand:hover .nav-logo img {
+    transform: scale(1.04);
+}
+
+.nav-logo svg { width: 38px; height: 38px; display: block; }
+
+.nav-brand-text {
+    font-size: 1.3rem; 
+    font-weight: 800;
+    color: var(--white); 
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+}
+
+.nav-links {
+    display: flex; 
+    align-items: center;
+    justify-content: center; /* Memastikan list items di dalamnya rata tengah */
+    gap: 2px; 
+    list-style: none;
+    flex: 2;
+}
+
+.nav-link {
+    display: flex; align-items: center; gap: 6px;
+    padding: 7px 13px;
+    font-size: 0.84rem; font-weight: 500;
+    color: var(--white-60);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active { color: var(--white); background: var(--white-10); }
+
+.nav-link svg { flex-shrink: 0; opacity: 0.75; }
+
+.nav-actions {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end; /* Memastikan tombol login/profile tetap rapat ke kanan */
+    gap: 10px; 
+    flex-shrink: 0;
+    flex: 1;
+}
+
+.nav-search-btn, .nav-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--white-60) !important; /* Memaksa warna mengikuti variable putih transparan */
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+}
+
+.nav-search-btn:hover, .nav-search:hover { color: var(--white); background: var(--white-10); }
+
+.nav-search-btn svg, .nav-search svg {
+    stroke: currentColor;
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    font-size: 0.82rem; 
+    font-weight: 600;
+    color: var(--white) !important;
+    text-decoration: none;
+    border: 1.5px solid var(--white-30);
+    border-radius: 10px;
+    transition: border-color var(--transition), background var(--transition);
+}
+
+.btn-outline:hover { border-color: var(--white-60); 
+    background: var(--white-10); }
+
+.btn-primary-nav, .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    font-size: 0.82rem; 
+    font-weight: 700;
+    color: var(--green-dark) !important;
+    background: var(--yellow);
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.btn-primary-nav:hover, .btn-primary:hover { background: var(--yellow-hover); 
+    transform: translateY(-1px); }
+
+/* =============================================
+NAVBAR USER DROPDOWN COMPONENT
+============================================= */
+.nav-profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px 6px 6px;
+    border-radius: 100px;
+    cursor: pointer;
+    color: var(--white);
+    transition: all var(--transition);
+}
+
+.nav-user-toggle:hover, .nav-user-toggle.active {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ccc;
+}
+
+.nav-user-name {
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.nav-user-toggle .chevron-icon {
+    transition: transform var(--transition);
+}
+
+.nav-user-toggle.active .chevron-icon {
+    transform: rotate(180deg);
+}
+
+/* Dropdown Content Box */
+.dropdown-menu-box {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 160px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    z-index: 1100;
+    animation: slideDropdown 0.25s ease;
+}
+
+.dropdown-menu-box.show {
+    display: flex;
+}
+
+/* Segitiga panah penunjuk atas */
+.dropdown-arrow {
+    position: absolute;
+    top: -6px;
+    right: 18px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    transform: rotate(45deg);
+    border-top-left-radius: 2px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background var(--transition), color var(--transition);
+}
+
+.dropdown-item:hover {
+    background: #f4f6f4;
+    color: var(--green-main);
+}
+
+.dropdown-item.logout-link {
+    color: #d63b3b;
+    margin-top: 4px;
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    padding-top: 12px;
+}
+
+.dropdown-item.logout-link:hover {
+    background: #fff5f5;
+    color: #d63b3b;
+}
+
+@keyframes slideDropdown {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =============================================
+   MAIN
+   ============================================= */
+.page-main {
+    flex: 1;
+    padding: calc(var(--nav-h) + 44px) 24px 56px;
+}
+
+.page-container {
+    max-width: var(--container);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 28px;
+}
+
+/* =============================================
+   SUCCESS HEADER
+   ============================================= */
+.success-header {
+    text-align: center;
+    animation: fadeDown 0.6s ease both;
+}
+
+.success-icon {
+    width: 58px; height: 58px;
+    background: var(--green-main);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--white);
+    margin: 0 auto 16px;
+    box-shadow: 0 8px 28px rgba(26,92,56,0.35);
+    animation: popIn 0.5s 0.1s cubic-bezier(0.34,1.56,0.64,1) both;
+}
+
+.success-title {
+    font-family: var(--font-serif);
+    font-size: clamp(1.8rem, 5vw, 2.4rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    margin-bottom: 8px;
+}
+
+.success-sub {
+    font-size: 0.90rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+/* =============================================
+   TICKET CARD
+   ============================================= */
+.ticket-wrap {
+    width: 100%;
+    animation: fadeUp 0.6s 0.15s ease both;
+}
+
+.ticket-card {
+    background: var(--bg-card);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: var(--shadow-ticket);
+    border: 1px solid var(--border);
+}
+
+/* ── Ticket Hero ── */
+.ticket-hero {
+    position: relative;
+    height: 200px;
+    overflow: hidden;
+}
+
+.ticket-hero-img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.6s ease;
+}
+
+.ticket-card:hover .ticket-hero-img { transform: scale(1.04); }
+
+.ticket-hero-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(
+        to top,
+        rgba(8,28,16,0.88) 0%,
+        rgba(8,28,16,0.30) 60%,
+        rgba(8,28,16,0.08) 100%
+    );
+}
+
+.ticket-hero-content {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    justify-content: space-between;
+    padding: 16px 20px;
+    z-index: 2;
+}
+
+.ticket-diff-badge {
+    display: inline-flex; align-items: center;
+    padding: 4px 12px;
+    background: rgba(232,131,42,0.90);
+    color: var(--white);
+    border-radius: 100px;
+    font-size: 0.68rem; font-weight: 800;
+    letter-spacing: 0.5px; text-transform: uppercase;
+    width: fit-content;
+}
+
+.ticket-hero-bottom {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.ticket-gunung-name {
+    font-family: var(--font-serif);
+    font-size: 1.5rem; font-weight: 700;
+    color: var(--white);
+    margin-bottom: 5px;
+    line-height: 1.15;
+}
+
+.ticket-lokasi {
+    display: flex; align-items: center; gap: 5px;
+    font-size: 0.75rem; color: var(--white-60);
+}
+
+.ticket-kode-wrap {
+    text-align: right; flex-shrink: 0;
+}
+
+.ticket-kode-label {
+    display: block;
+    font-size: 0.60rem; font-weight: 700;
+    color: var(--white-60);
+    text-transform: uppercase; letter-spacing: 0.5px;
+    margin-bottom: 3px;
+}
+
+.ticket-kode {
+    display: block;
+    font-size: 0.78rem; font-weight: 800;
+    color: var(--yellow);
+    letter-spacing: 0.5px;
+}
+
+/* ── Ticket Notch ── */
+.ticket-notch {
+    display: flex; align-items: center;
+    background: var(--bg-page);
+    position: relative;
+    height: 22px;
+}
+
+.notch-left,
+.notch-right {
+    width: 22px; height: 22px;
+    background: var(--bg-page);
+    border-radius: 0;
+    flex-shrink: 0;
+    position: relative;
+}
+
+.notch-left {
+    border-radius: 0 11px 11px 0;
+    box-shadow: inset -4px 0 0 0 var(--border);
+    background: var(--bg-page);
+}
+
+.notch-right {
+    border-radius: 11px 0 0 11px;
+    box-shadow: inset 4px 0 0 0 var(--border);
+    background: var(--bg-page);
+}
+
+.notch-dash {
+    flex: 1;
+    background: var(--bg-card);
+    height: 100%;
+    background-image: repeating-linear-gradient(
+        90deg,
+        var(--border) 0, var(--border) 6px,
+        transparent 6px, transparent 16px
+    );
+    background-size: 100% 1px;
+    background-position: center;
+    background-repeat: repeat-x;
+}
+
+/* ── Ticket Meta ── */
+.ticket-meta {
+    background: var(--bg-card);
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px;
+}
+
+.meta-item {
+    display: flex; flex-direction: column; gap: 4px;
+}
+
+.meta-label {
+    font-size: 0.65rem; font-weight: 700;
+    color: var(--text-muted);
+    text-transform: uppercase; letter-spacing: 0.6px;
+}
+
+.meta-val {
+    display: flex; align-items: center; gap: 6px;
+    font-size: 0.92rem; font-weight: 700;
+    color: var(--text-dark);
+}
+
+.meta-val svg { color: var(--green-main); flex-shrink: 0; }
+
+.meta-harga {
+    font-family: var(--font-serif);
+    font-size: 1.25rem; font-weight: 700;
+    color: var(--green-main);
+    display: block;
+}
+
+/* ── QR Section ── */
+.ticket-qr-section {
+    background: var(--bg-card);
+    padding: 24px 20px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 10px;
+    text-align: center;
+}
+
+.qr-box {
+    background: var(--white);
+    border: 2px solid var(--border);
+    border-radius: 14px;
+    padding: 16px;
+    display: flex; flex-direction: column;
+    align-items: center; gap: 8px;
+    box-shadow: var(--shadow-sm);
+}
+
+/* QR code canvas/img generated by lib */
+#qrcode img,
+#qrcode canvas {
+    display: block;
+    border-radius: 6px;
+}
+
+.qr-code-val {
+    font-size: 0.72rem; font-weight: 800;
+    color: var(--text-muted);
+    letter-spacing: 1.5px; text-transform: uppercase;
+}
+
+.qr-sub-title {
+    font-size: 0.90rem; font-weight: 700;
+    color: var(--text-dark);
+}
+
+.qr-desc {
+    font-size: 0.78rem; color: var(--text-muted);
+    line-height: 1.55; max-width: 340px;
+}
+
+/* ── Ticket Actions ── */
+.ticket-actions {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    padding: 16px 20px 22px;
+    background: var(--bg-card);
+}
+
+.btn-download,
+.btn-share {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px 16px;
+    font-family: var(--font-main);
+    font-size: 0.84rem; font-weight: 700;
+    border-radius: 11px; cursor: pointer;
+    transition: all var(--transition);
+    white-space: nowrap;
+}
+
+.btn-download {
+    background: var(--green-main);
+    color: var(--white); border: none;
+}
+
+.btn-download:hover {
+    background: var(--green-mid);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(26,92,56,0.30);
+}
+
+.btn-share {
+    background: var(--bg-page);
+    color: var(--text-mid);
+    border: 1.5px solid var(--border);
+}
+
+.btn-share:hover {
+    border-color: var(--green-main);
+    color: var(--green-main);
+    background: rgba(26,92,56,0.05);
+    transform: translateY(-2px);
+}
+
+/* =============================================
+   INFO CARDS
+   ============================================= */
+.info-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    width: 100%;
+    animation: fadeUp 0.6s 0.25s ease both;
+}
+
+.info-card {
+    background: var(--bg-card);
+    border-radius: 14px;
+    border: 1px solid var(--border);
+    box-shadow: var(--shadow-sm);
+    padding: 18px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    transition: transform var(--transition), box-shadow var(--transition);
+    animation: fadeUp 0.5s ease both;
+}
+
+.info-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.info-card-icon {
+    width: 44px; height: 44px;
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+}
+
+.info-icon-health  { background: rgba(26,92,56,0.10); color: var(--green-main); }
+.info-icon-basecamp{ background: rgba(245,200,66,0.15); color: #9a7a00; }
+.info-icon-safety  { background: rgba(232,131,42,0.12); color: #b85c00; }
+
+.info-card-title {
+    font-size: 0.86rem; font-weight: 800;
+    color: var(--text-dark); margin-bottom: 4px;
+}
+
+.info-card-desc {
+    font-size: 0.78rem; color: var(--text-muted);
+    line-height: 1.6;
+}
+
+/* =============================================
+   BACK / EXPLORE BUTTONS
+   ============================================= */
+.back-wrap {
+    display: flex; gap: 12px;
+    width: 100%; justify-content: center;
+    animation: fadeUp 0.5s 0.35s ease both;
+}
+
+.btn-back,
+.btn-explore {
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 11px 24px;
+    font-family: var(--font-main);
+    font-size: 0.84rem; font-weight: 700;
+    border-radius: 100px; text-decoration: none;
+    transition: all var(--transition);
+}
+
+.btn-back {
+    background: var(--bg-card);
+    color: var(--text-mid);
+    border: 1.5px solid var(--border);
+}
+
+.btn-back:hover {
+    border-color: var(--green-main);
+    color: var(--green-main);
+    transform: translateX(-2px);
+}
+
+.btn-explore {
+    background: var(--green-main);
+    color: var(--white);
+    border: none;
+}
+
+.btn-explore:hover {
+    background: var(--green-mid);
+    transform: translateX(2px);
+    box-shadow: 0 6px 20px rgba(26,92,56,0.30);
+}
+
+/* =============================================
+   FOOTER (PERBAIKAN LOGO GAMBAR BARU)
+   ============================================= */
+.footer {
+    background: #1B4332;
+    padding: 26px 40px;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: var(--container);
+    margin: 0 auto;
+}
+
+/* Mengatur area pembungkus logo gambar */
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;       /* Tinggi ideal logo agar proporsional dengan teks footer */
+    flex-shrink: 0;     /* Mencegah logo mengecil/tertekan oleh teks deskripsi */
+}
+
+/* Memastikan gambar logo menyesuaikan area secara proporsional */
+.footer-logo img {
+    height: 100%;       /* Mengikuti tinggi dari .footer-logo (44px) */
+    width: auto;        /* Lebar menyesuaikan otomatis agar logo tidak gepeng */
+    object-fit: contain;
+    display: block;
+}
+
+.footer-text {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.32);
+    line-height: 1.65;
+    flex: 1;
+}
+
+.footer-copy {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.28);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* =============================================
+   TOAST
+   ============================================= */
+.toast {
+    position: fixed;
+    bottom: 28px; left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    background: var(--green-dark);
+    color: var(--white);
+    padding: 11px 24px;
+    border-radius: 100px;
+    font-size: 0.83rem; font-weight: 600;
+    opacity: 0; pointer-events: none;
+    transition: opacity var(--transition), transform var(--transition);
+    z-index: 3000;
+    white-space: nowrap;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+    border: 1px solid rgba(255,255,255,0.10);
+}
+
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+.toast.info { background: #1a5c38; }
+
+/* =============================================
+   ANIMATIONS
+   ============================================= */
+@keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-16px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes popIn {
+    from { opacity: 0; transform: scale(0.5); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+/* =============================================
+   RESPONSIVE
+   ============================================= */
+@media (max-width: 760px) {
+    .navbar { width: calc(100% - 24px); top: 10px; border-radius: 20px; }
+    .nav-links { display: none; }
+
+    .info-grid { grid-template-columns: 1fr; }
+
+    .ticket-meta { grid-template-columns: 1fr 1fr; }
+
+    .ticket-actions { grid-template-columns: 1fr; }
+
+    .back-wrap { flex-direction: column; align-items: stretch; }
+    .btn-back, .btn-explore { justify-content: center; }
+}
+
+@media (max-width: 480px) {
+    .page-main { padding: calc(var(--nav-h) + 28px) 16px 40px; }
+    .ticket-meta { grid-template-columns: 1fr; }
+    .ticket-hero { height: 160px; }
+}

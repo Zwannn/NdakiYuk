@@ -1,0 +1,768 @@
+/* ==========================================================================
+   assets/css/tiket.css 
+   Styling Riwayat Pemesanan Tiket NdakiYuk - Kusuma Adi Rabbani Palette
+   ========================================================================== */
+
+/* ---- Reset & Variables Global Integration ---- */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --green-dark:   #0d3b22;
+    --green-primary:#1a5c38;
+    --green-mid:    #246b43;
+    --green-light:  #eef7f2;
+    --yellow:       #f5c842;
+    --yellow-hover: #e0b530;
+    --white:        #ffffff;
+    --white-60:     rgba(255,255,255,0.6);
+    --white-20:     rgba(255,255,255,0.2);
+    --white-10:     rgba(255,255,255,0.1);
+    --orange-warning: #e8832a;
+    --blue-info:     #4b86b4;
+    --red-danger:    #d9534f;
+    --text-main:    #2d3748;
+    --text-muted:   #718096;
+    --bg-base:      #f7fafc;
+    --card-shadow:  0 4px 15px rgba(0, 0, 0, 0.04);
+    --font-main:    'Plus Jakarta Sans', sans-serif;
+    --nav-h:        72px;
+    --radius-nav:   37px;   /* Disamakan dengan login.css */
+    --transition:   0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+    --nav-h:        72px;
+    --radius-nav:   37px;
+    --white:        #ffffff;
+    --white-60:     rgba(255,255,255,0.60);
+    --white-30:     rgba(255,255,255,0.30);
+    --white-10:     rgba(255,255,255,0.10);
+    --yellow:       #f5c842;
+    --yellow-hover: #e0b530;
+    --green-dark:   #0d3b22;
+    --green-main:   #1a5c38;
+    --text-dark:    #0f2419;
+    --border:       #e0e8e3;
+    --transition:   0.3s cubic-bezier(0.4,0,0.2,1);
+}
+
+html { 
+    scroll-behavior: smooth; 
+}
+
+body {
+    background-color: var(--bg-base);
+    color: var(--text-main);
+    font-family: var(--font-main);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* ==========================================================================
+   NAVBAR COMPONENT (Directly synced with login.css Layout)
+   ========================================================================== */
+/* ── Induk Utama Floating Navbar ── */
+.navbar {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: calc(100% - 48px);
+    max-width: 1200px;
+    height: var(--nav-h);
+    background: rgba(13, 59, 34, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.10);
+    border-radius: var(--radius-nav);
+    z-index: 1000;
+    transition: background var(--transition), box-shadow var(--transition);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.26);
+}
+
+/* Efek Transparansi Sempurna Saat Halaman Di-scroll Kebawah */
+.navbar.scrolled {
+    background: rgba(13, 59, 34, 0.60);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.16);
+}
+
+.nav-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    padding: 0 24px;
+    gap: 12px;
+}
+
+/* Sisi Kiri: Identitas Brand & Logo */
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+    height: 100%;
+    flex: 1;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+}
+
+.nav-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+    transition: transform var(--transition);
+}
+
+.nav-brand:hover .nav-logo img {
+    transform: scale(1.04);
+}
+
+.nav-brand-text {
+    font-size: 1.3rem; 
+    font-weight: 800;
+    color: var(--white); 
+    letter-spacing: -0.3px;
+    white-space: nowrap;
+}
+
+/* Sisi Tengah: Menu Navigasi Link Teks */
+.nav-links {
+    display: flex; 
+    align-items: center;
+    justify-content: center;
+    gap: 2px; 
+    list-style: none;
+    flex: 2;
+}
+
+.nav-link {
+    display: inline-flex; 
+    align-items: center; 
+    gap: 6px;
+    padding: 7px 13px;
+    font-size: 0.84rem; 
+    font-weight: 500;
+    color: var(--white-60);
+    text-decoration: none;
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+    white-space: nowrap;
+}
+
+.nav-link:hover,
+.nav-link.active { 
+    color: var(--white); 
+    background: var(--white-10); 
+}
+
+.nav-link svg { 
+    flex-shrink: 0; 
+    opacity: 0.75; 
+}
+
+/* Sisi Kanan: Tombol Aksi & Kendali User */
+.nav-actions {
+    display: flex; 
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px; 
+    flex-shrink: 0;
+    flex: 1;
+}
+
+.nav-search-btn, .nav-search {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--white-60) !important;
+    border-radius: 10px;
+    transition: color var(--transition), background var(--transition);
+}
+
+.nav-search-btn:hover, .nav-search:hover { 
+    color: var(--white); 
+    background: var(--white-10); 
+}
+
+.nav-search-btn svg, .nav-search svg { 
+    stroke: currentColor; 
+}
+
+/* Model Tombol Guest Mode (Login / Register) */
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 18px;
+    font-size: 0.82rem; 
+    font-weight: 600;
+    color: var(--white) !important;
+    text-decoration: none;
+    border: 1.5px solid var(--white-30);
+    border-radius: 10px;
+    transition: border-color var(--transition), background var(--transition);
+}
+
+.btn-outline:hover { 
+    border-color: var(--white-60); 
+    background: var(--white-10); 
+}
+
+.btn-primary-nav, .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 20px;
+    font-size: 0.82rem; 
+    font-weight: 700;
+    color: var(--green-dark) !important;
+    background: var(--yellow);
+    text-decoration: none;
+    border-radius: 10px;
+    border: none;
+    transition: background var(--transition), transform var(--transition);
+}
+
+.btn-primary-nav:hover, .btn-primary:hover { 
+    background: var(--yellow-hover); 
+    transform: translateY(-1px); 
+}
+
+/* ── KELOMPOK DROPDOWN AKUN USER PROFILE ── */
+.nav-profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.nav-user-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    padding: 6px 14px 6px 6px;
+    border-radius: 100px;
+    cursor: pointer;
+    color: var(--white);
+    transition: all var(--transition);
+}
+
+.nav-user-toggle:hover, .nav-user-toggle.active {
+    background: rgba(255, 255, 255, 0.18);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+.nav-user-avatar {
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    object-fit: cover;
+    background: #ccc;
+}
+
+.nav-user-name {
+    font-size: 0.84rem;
+    font-weight: 600;
+}
+
+.nav-user-toggle .chevron-icon { 
+    transition: transform var(--transition); 
+}
+
+.nav-user-toggle.active .chevron-icon { 
+    transform: rotate(180deg); 
+}
+
+/* Menu Dropdown Box */
+.dropdown-menu-box {
+    position: absolute;
+    top: calc(100% + 12px);
+    right: 0;
+    width: 160px;
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+    padding: 6px;
+    display: none;
+    flex-direction: column;
+    z-index: 1100;
+    animation: slideDropdown 0.25s ease;
+}
+
+.dropdown-menu-box.show { 
+    display: flex; 
+}
+
+.dropdown-arrow {
+    position: absolute;
+    top: -6px;
+    right: 18px;
+    width: 12px;
+    height: 12px;
+    background: var(--white);
+    transform: rotate(45deg);
+    border-top-left-radius: 2px;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    text-decoration: none;
+    border-radius: 8px;
+    transition: background var(--transition), color var(--transition);
+}
+
+.dropdown-item:hover { 
+    background: #f4f6f4; 
+    color: var(--green-main); 
+}
+
+.dropdown-item.logout-link {
+    color: #d63b3b;
+    margin-top: 4px;
+    border-top: 1px solid var(--border);
+    border-radius: 0 0 8px 8px;
+    padding-top: 12px;
+}
+
+.dropdown-item.logout-link:hover { 
+    background: #fff5f5; 
+    color: #d63b3b; 
+}
+
+@keyframes slideDropdown {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ==========================================================================
+   MEDIA QUERIES ENGINE (Sistem Responsif Pendukung khusus Kendali Navbar)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+    .navbar { width: calc(100% - 32px); }
+    .nav-links { gap: 0px; }
+    .nav-link { padding: 7px 10px; font-size: 0.8rem; }
+}
+
+@media (max-width: 768px) {
+    .navbar {
+        width: calc(100% - 24px);
+        top: 12px;
+        height: 64px;
+        border-radius: 20px;
+    }
+    .nav-container { padding: 0 16px; }
+    .nav-links { display: none; } /* Menyembunyikan teks menu tengah di HP */
+    .nav-brand-text { font-size: 1.15rem; }
+}
+
+@media (max-width: 480px) {
+    .nav-username, .nav-user-name { 
+        display: none; /* Menyembunyikan teks nama user di HP kecil agar tidak sumpek */
+    }
+    .nav-user-toggle { padding: 6px; }
+}
+
+/* ==========================================================================
+   TIKET BODY CONTENT & HEADERS
+   ========================================================================== */
+.tiket-header {
+    background: linear-gradient(135deg, var(--green-dark) 0%, var(--green-primary) 100%);
+    color: #ffffff;
+    padding: calc(16px + var(--nav-h) + 40px) 0 60px 0;
+    text-align: center;
+}
+.header-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+.header-title {
+    font-size: 2.2rem;
+    font-weight: 800;
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+}
+.header-sub {
+    font-size: 0.98rem;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+}
+
+/* ── CONTAINER STRUCTURAL LAYOUT ── */
+.page-main {
+    padding: 40px 0 80px 0;
+}
+.page-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    width: 100%;
+}
+
+/* ── GRID CARD CONTAINER ── */
+.tiket-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tiket-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    display: flex;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.03);
+    transition: var(--transition-smooth);
+}
+.tiket-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 25px rgba(26, 92, 56, 0.08);
+    border-color: rgba(26, 92, 56, 0.15);
+}
+
+/* ── DATA SECTION SISI KIRI: IMAGE ── */
+.card-image-section {
+    position: relative;
+    width: 240px;
+    min-width: 240px;
+    height: auto;
+}
+.gunung-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.img-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to right, rgba(0,0,0,0.1), rgba(0,0,0,0.4));
+}
+.height-badge {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    background: rgba(13, 59, 34, 0.85);
+    color: #ffffff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 5px 10px;
+    border-radius: 6px;
+    backdrop-filter: blur(4px);
+}
+
+/* ── DATA SECTION SISI TENGAH: DETAILS ── */
+.card-details-section {
+    padding: 24px;
+    flex-grow: 1;
+}
+.meta-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.booking-code {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--green-primary);
+    background: var(--green-light);
+    padding: 4px 8px;
+    border-radius: 6px;
+}
+.status-badge {
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+.status-pembayaran { background: #fff3e6; color: var(--orange-warning); }
+.status-verifikasi { background: #e6f2ff; color: var(--blue-info); }
+.status-lunas { background: #e6f7ed; color: var(--green-primary); }
+.status-ditolak { background: #ffe6e6; color: var(--red-danger); }
+.status-selesai { background: #edf2f7; color: var(--text-muted); }
+
+.gunung-title {
+    font-size: 1.4rem;
+    font-weight: 800;
+    color: var(--green-dark);
+    margin: 0 0 2px 0;
+}
+.gunung-lokasi {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    margin: 0 0 16px 0;
+}
+
+.info-row-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+}
+.info-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+.info-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+.info-value {
+    font-size: 0.88rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--text-main);
+}
+.info-value svg {
+    color: var(--green-primary);
+}
+.price-tag {
+    color: var(--green-primary);
+    font-weight: 800;
+}
+
+/* ── DATA SECTION SISI KANAN: ACTIONS ── */
+.card-actions-section {
+    padding: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px dashed rgba(0, 0, 0, 0.08);
+    min-width: 180px;
+}
+.btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    text-align: center;
+    transition: var(--transition-smooth);
+}
+.btn-pay {
+    background: #f5c842;
+    color: var(--green-dark);
+}
+.btn-pay:hover {
+    background: #e2b635;
+    transform: scale(1.02);
+}
+.btn-view {
+    background: var(--green-light);
+    color: var(--green-primary);
+}
+.btn-view:hover {
+    background: var(--green-primary);
+    color: #ffffff;
+    transform: scale(1.02);
+}
+
+/* ── EMPTY RECORD TAMPILAN JIKA KOSONG ── */
+.empty-ticket-card {
+    background: #ffffff;
+    border-radius: 16px;
+    box-shadow: var(--card-shadow);
+    padding: 60px 20px;
+    text-align: center;
+    max-width: 500px;
+    margin: 40px auto 0 auto;
+}
+.empty-icon {
+    color: var(--text-muted);
+    margin-bottom: 16px;
+}
+.empty-title {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--green-dark);
+    margin: 0 0 6px 0;
+}
+.empty-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    margin: 0 0 24px 0;
+    line-height: 1.4;
+}
+.btn-explore {
+    display: inline-block;
+    background: var(--green-primary);
+    color: #ffffff;
+    padding: 12px 28px;
+    font-size: 0.88rem;
+    font-weight: 700;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: var(--transition-smooth);
+}
+.btn-explore:hover {
+    background: var(--green-dark);
+}
+
+/* ==========================================================================
+   FOOTER COMPONENT (Directly from login.css)
+   ========================================================================== */
+.footer {
+    background: #1B4332;
+    padding: 26px 40px;
+    margin-top: 60px;
+}
+
+.footer-container {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 44px;
+    flex-shrink: 0;
+}
+
+.footer-logo img {
+    height: 100%;
+    width: auto;
+    object-fit: contain;
+    display: block;
+}
+
+.footer-text {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.32);
+    line-height: 1.65;
+    flex: 1;
+}
+
+.footer-copy {
+    font-size: 0.74rem;
+    color: rgba(255,255,255,0.28);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+/* ==========================================================================
+   MEDIA QUERIES (RESPONSIVE ENGINE RIWAYAT TIKET)
+   ========================================================================== */
+
+/* ── LAPTOP KECIL / TABLET LANDSCAPE (max-width: 1024px) ── */
+@media (max-width: 1024px) {
+    .page-container, .header-container { padding: 0 24px; }
+    .nav-links { gap: 0px; }
+    .nav-link { padding: 7px 10px; font-size: 0.8rem; }
+    .header-title { font-size: 2rem; }
+}
+
+/* ── TABLET PORTRAIT / SCREEN GADGET (max-width: 900px) ── */
+@media (max-width: 900px) {
+    .navbar {
+        width: calc(100% - 24px);
+        top: 10px;
+        border-radius: 20px; 
+    }
+    .nav-links { display: none; } /* Sembunyikan menu teks tengah */
+
+    .footer-container { 
+        flex-direction: column; 
+        text-align: center;
+        gap: 16px;
+    }
+    .footer-copy { white-space: normal; }
+}
+
+/* ── SMARTPHONE STANDAR BREAKDOWN (max-width: 768px) ── */
+@media (max-width: 768px) {
+    .navbar { height: 64px; }
+    .tiket-header { padding: 110px 0 45px 0; }
+    .header-title { font-size: 1.75rem; }
+    .header-sub { font-size: 0.88rem; }
+
+    /* Transformasi Kartu dari Baris Horizontal menjadi Tumpukan Vertikal */
+    .tiket-card {
+        flex-direction: column;
+    }
+    .card-image-section {
+        width: 100%;
+        min-width: 100%;
+        height: 160px;
+    }
+    .gunung-img {
+        object-position: center 35%; /* Mencegah pemotongan kepala gunung */
+    }
+    .card-details-section {
+        padding: 20px;
+    }
+    .info-row-grid {
+        grid-template-columns: repeat(2, 1fr); /* Tetap 2 kolom di tablet miring */
+        gap: 12px;
+    }
+    .card-actions-section {
+        border-left: none;
+        border-top: 1px dashed rgba(0, 0, 0, 0.08);
+        padding: 16px 20px;
+        width: 100%;
+        min-width: 100%;
+    }
+    .btn-action {
+        width: 100%; /* Tombol melebar penuh menyesuaikan space mobile */
+    }
+}
+
+/* ── GADGET MOBIL KECIL (max-width: 576px) ── */
+@media (max-width: 576px) {
+    .gunung-title { font-size: 1.25rem; }
+    .info-row-grid {
+        grid-template-columns: 1fr; /* Kolom info data jatuh menjadi 1 lajur murni */
+        gap: 10px;
+    }
+}
+
+/* ── MICRO SMARTPHONE BREAKDOWN (max-width: 480px) ── */
+@media (max-width: 480px) {
+    .nav-username, .nav-user-name { 
+        display: none; /* Bersihkan space nama ketua agar tidak desak-desakan */
+    }
+    .nav-user-toggle { padding: 6px; }
+    .meta-top { flex-wrap: wrap; gap: 8px; } /* Mencegah overflow status badge */
+}
